@@ -1,7 +1,7 @@
 from datetime import date
 from fastapi import APIRouter, Depends, HTTPException
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, sum
+from pyspark.sql.functions import col, sum, avg
 from api.models.user import UserSchema
 from security.authentication import verify_token
 
@@ -54,6 +54,37 @@ def sales_by_time_period(
                 queryKey: row[queryKey],
                 "TotalSalesAmount": row["TotalSalesAmount"],
                 "TotalQuantitySold": row["TotalQuantitySold"],
+            }
+            for row in result
+        ]
+
+        return result_json
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/total_and_average_sales/", tags=["Sales"])
+def total_and_average_sales(
+    queryKey: str,
+    user: UserSchema = Depends(verify_token),
+):
+    if queryKey not in ["KeyEmployee", "KeyProduct", "KeyStore"]:
+        raise HTTPException(status_code=400, detail="Enter a valid queryKey")
+
+    try:
+        sales_result = df.groupBy(queryKey).agg(
+            sum("Amount").alias("TotalAmount"),
+            avg("Amount").alias("AvgAmount"),
+        )
+
+        # Convert the result to JSON using nested dictionaries
+        result = sales_result.collect()
+        result_json = [
+            {
+                queryKey: row[queryKey],
+                "TotalAmount": row["TotalAmount"],
+                "AvgAmount": row["AvgAmount"],
             }
             for row in result
         ]
