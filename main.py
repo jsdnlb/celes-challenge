@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from api.routers import users
+from api.routers import users, sales
 import uvicorn
 
 
@@ -21,6 +21,7 @@ def not_found(request, exc):
 
 
 app.include_router(users.router, prefix="/api/users")
+app.include_router(sales.router, prefix="/api/sales")
 
 
 if __name__ == "__main__":
