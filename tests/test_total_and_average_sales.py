@@ -16,6 +16,7 @@ class TestTotalAndAverageSales(unittest.TestCase):
     def setUp(self):
         self.data_path = "test_data/"
         self.ROUTE_ENDPOINT = "/api/sales/total_and_average_sales/"
+        self.valid_token = self.get_valid_token()
         setup_test_environment(self.data_path)
 
     def tearDown(self):
@@ -36,10 +37,9 @@ class TestTotalAndAverageSales(unittest.TestCase):
     """
 
     def test_total_and_average_sales_keystore(self):
-        token = self.get_valid_token()
         response = client.get(
             self.ROUTE_ENDPOINT,
-            headers={"Authorization": f"Bearer {token}"},
+            headers={"Authorization": f"Bearer {self.valid_token}"},
             params={"query_key": "KeyStore", "data_path": self.data_path},
         )
         expected_response = [
@@ -53,10 +53,9 @@ class TestTotalAndAverageSales(unittest.TestCase):
         )
 
     def test_total_and_average_sales_keyproduct(self):
-        token = self.get_valid_token()
         response = client.get(
             self.ROUTE_ENDPOINT,
-            headers={"Authorization": f"Bearer {token}"},
+            headers={"Authorization": f"Bearer {self.valid_token}"},
             params={"query_key": "KeyProduct", "data_path": self.data_path},
         )
         expected_response = [
@@ -74,10 +73,9 @@ class TestTotalAndAverageSales(unittest.TestCase):
         )
 
     def test_total_and_average_sales_keyemployee(self):
-        token = self.get_valid_token()
         response = client.get(
             self.ROUTE_ENDPOINT,
-            headers={"Authorization": f"Bearer {token}"},
+            headers={"Authorization": f"Bearer {self.valid_token}"},
             params={"query_key": "KeyEmployee", "data_path": self.data_path},
         )
         expected_response = [
@@ -99,10 +97,9 @@ class TestTotalAndAverageSales(unittest.TestCase):
         """
         This test validates the exception that we must enter a valid query_key.
         """
-        token = self.get_valid_token()
         response = client.get(
             self.ROUTE_ENDPOINT,
-            headers={"Authorization": f"Bearer {token}"},
+            headers={"Authorization": f"Bearer {self.valid_token}"},
             params={"query_key": "InvalidKey", "data_path": self.data_path},
         )
         self.assertEqual(response.status_code, 400)
