@@ -29,14 +29,14 @@ class TestSalesByTimePeriod(unittest.TestCase):
 
     def test_valid_request_with_keyemployee(self):
         """
-        Test to validate the correct operation with queryKey KeyEmployee
+        Test to validate the correct operation with query_key KeyEmployee
         """
         response = self.client.get(
             self.ROUTE_ENDPOINT,
             params={
                 "start_date": "2023-01-01",
                 "end_date": "2023-01-02",
-                "queryKey": "KeyEmployee",
+                "query_key": "KeyEmployee",
             },
             headers={"Authorization": f"Bearer {self.valid_token}"},
         )
@@ -46,14 +46,14 @@ class TestSalesByTimePeriod(unittest.TestCase):
 
     def test_valid_request_with_keystore(self):
         """
-        Test to validate the correct operation with queryKey KeyStore
+        Test to validate the correct operation with query_key KeyStore
         """
         response = self.client.get(
             self.ROUTE_ENDPOINT,
             params={
                 "start_date": "2023-01-01",
                 "end_date": "2023-01-02",
-                "queryKey": "KeyStore",
+                "query_key": "KeyStore",
             },
             headers={"Authorization": f"Bearer {self.valid_token}"},
         )
@@ -63,14 +63,14 @@ class TestSalesByTimePeriod(unittest.TestCase):
 
     def test_valid_request_with_keyproduct(self):
         """
-        Test to validate the correct operation with queryKey KeyProduct
+        Test to validate the correct operation with query_key KeyProduct
         """
         response = self.client.get(
             self.ROUTE_ENDPOINT,
             params={
                 "start_date": "2023-01-01",
                 "end_date": "2023-01-02",
-                "queryKey": "KeyProduct",
+                "query_key": "KeyProduct",
             },
             headers={"Authorization": f"Bearer {self.valid_token}"},
         )
@@ -87,7 +87,7 @@ class TestSalesByTimePeriod(unittest.TestCase):
             params={
                 "start_date": "2023-01-02",
                 "end_date": "2023-01-01",
-                "queryKey": "KeyEmployee",
+                "query_key": "KeyEmployee",
             },
             headers={"Authorization": f"Bearer {self.valid_token}"},
         )
@@ -102,19 +102,19 @@ class TestSalesByTimePeriod(unittest.TestCase):
 
     def test_invalid_query_key(self):
         """
-        Test to validate that input fails when entering an invalid queryKey
+        Test to validate that input fails when entering an invalid query_key
         """
         response = self.client.get(
             self.ROUTE_ENDPOINT,
             params={
                 "start_date": "2023-01-01",
                 "end_date": "2023-01-02",
-                "queryKey": "InvalidKey",
+                "query_key": "InvalidKey",
             },
             headers={"Authorization": f"Bearer {self.valid_token}"},
         )
         self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json()["detail"], "Enter a valid queryKey")
+        self.assertEqual(response.json()["detail"], "Enter a valid query key")
 
     def test_to_validate_input_year(self):
         """
@@ -125,7 +125,7 @@ class TestSalesByTimePeriod(unittest.TestCase):
             params={
                 "start_date": "20-01-01",
                 "end_date": "2023-01-02",
-                "queryKey": "KeyProduct",
+                "query_key": "KeyProduct",
             },
             headers={"Authorization": f"Bearer {self.valid_token}"},
         )
@@ -145,7 +145,7 @@ class TestSalesByTimePeriod(unittest.TestCase):
             params={
                 "start_date": "2023-01-01",
                 "end_date": "2023-13-02",
-                "queryKey": "KeyProduct",
+                "query_key": "KeyProduct",
             },
             headers={"Authorization": f"Bearer {self.valid_token}"},
         )
@@ -165,7 +165,7 @@ class TestSalesByTimePeriod(unittest.TestCase):
             params={
                 "start_date": "2023-01-32",
                 "end_date": "2023-13-02",
-                "queryKey": "KeyProduct",
+                "query_key": "KeyProduct",
             },
             headers={"Authorization": f"Bearer {self.valid_token}"},
         )
