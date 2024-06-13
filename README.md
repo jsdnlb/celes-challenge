@@ -52,6 +52,11 @@ python -m unittest discover -s tests
 ```
 ![image](https://github.com/jsdnlb/celes-challenge/assets/17171887/84f3b4f0-a626-4238-9772-1846f9b08ae9)
 
+## Running SonarQube ⚙️
+
+![image](https://github.com/jsdnlb/celes-challenge/assets/17171887/737d81f5-1c90-4943-a966-558ce9678a31)
+
+
 ## Built with 🛠️
 
 _This project was built with the following tools_
