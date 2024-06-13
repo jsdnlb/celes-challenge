@@ -1,6 +1,7 @@
 import os
 import shutil
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import to_date
 
 
 def create_test_data(data_path):
@@ -15,6 +16,7 @@ def create_test_data(data_path):
             "KeyProduct": 101,
             "KeyStore": 1001,
             "Amount": 150.0,
+            "Qty": 10,
         },
         {
             "KeyDate": "2024-01-02",
@@ -22,6 +24,7 @@ def create_test_data(data_path):
             "KeyProduct": 102,
             "KeyStore": 1001,
             "Amount": 200.0,
+            "Qty": 20,
         },
         {
             "KeyDate": "2024-01-03",
@@ -29,6 +32,7 @@ def create_test_data(data_path):
             "KeyProduct": 101,
             "KeyStore": 1002,
             "Amount": 300.0,
+            "Qty": 15,
         },
         {
             "KeyDate": "2024-01-04",
@@ -36,6 +40,7 @@ def create_test_data(data_path):
             "KeyProduct": 101,
             "KeyStore": 1002,
             "Amount": 1000.0,
+            "Qty": 5,
         },
     ]
     df = spark.createDataFrame(data)
